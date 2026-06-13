@@ -4,7 +4,7 @@
 
 - Muhammad Yudhi Wahyu Wibowo
 - Indryana Azaki
-- Azam Irfansyah
+- Muhammad Azam Irfansyah
 - Four Rezeki Waruwu
 
 ## Deskripsi
