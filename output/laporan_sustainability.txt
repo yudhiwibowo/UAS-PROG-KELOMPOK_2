@@ -1,0 +1,26 @@
+LAPORAN SUSTAINABILITY UNESA
+
+Jumlah Record : 29200
+Jumlah Gedung : 20
+Jumlah Parameter : 4
+
+Energy
+Rata-rata : 164.85
+Maksimum : 249.98
+Minimum : 80.01
+
+Water
+Rata-rata : 704.01
+Maksimum : 1199.71
+Minimum : 200.04
+
+CO2
+Rata-rata : 624.41
+Maksimum : 899.94
+Minimum : 350.01
+
+Waste
+Rata-rata : 32.31
+Maksimum : 59.99
+Minimum : 5.03
+
