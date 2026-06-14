@@ -1,47 +1,45 @@
-# Implementasi Python
+# Python Implementation
 
-## Deskripsi
+## Description
 
-Program Python ini merupakan implementasi analisis sustainability kampus UNESA menggunakan library Pandas. Program menyediakan fitur yang sama dengan versi C++, namun memanfaatkan kemampuan Pandas untuk pengolahan data yang lebih ringkas dan efisien.
+This Python program is used to analyze UNESA campus sustainability data based on a dataset stored in a CSV file. The program provides an interactive menu to display dataset summaries, parameter statistics, building analysis, sustainability ratings, and the generation of analysis reports.
 
 ## File
 
-* `main.py` : Program utama analisis sustainability.
+* `main.py` : Main program for sustainability analysis.
 
-## Library yang Digunakan
+## Features
 
-* pandas
+1. Reads the dataset from a CSV file.
+2. Displays a dataset summary.
+3. Calculates statistics for each parameter.
+4. Identifies the building with the highest average value for each parameter.
+5. Provides Sustainability Ratings (Green, Warning, Critical).
+6. Saves the analysis results to a report file.
 
-Instalasi:
+## Library Installation
 
 ```bash
 pip install pandas
 ```
 
-## Fitur
-
-1. Membaca dataset CSV menggunakan Pandas.
-2. Menampilkan ringkasan dataset.
-3. Menghitung statistik setiap parameter.
-4. Menentukan gedung dengan nilai rata-rata tertinggi.
-5. Menampilkan Sustainability Rating.
-6. Menyimpan laporan hasil analisis ke file teks.
-
-## Cara Menjalankan
+## How to Run
 
 ```bash
 python main.py
 ```
 
-atau
+## Data Structures Used
 
-```bash
-python3 main.py
-```
+* Pandas DataFrame
+* Functions
+* GroupBy
+* Data Filtering
+* File Handling
 
 ## Input
 
-Program membaca data dari:
+The program reads data from:
 
 ```text
 ../dataset/sustainability_data.csv
@@ -49,14 +47,8 @@ Program membaca data dari:
 
 ## Output
 
-Program menghasilkan laporan:
+The program generates a report file:
 
 ```text
 ../output/laporan_sustainability.txt
 ```
-
-## Keunggulan Implementasi Python
-
-* Kode lebih ringkas.
-* Pengolahan data lebih cepat dengan Pandas.
-* Mudah dikembangkan untuk visualisasi data dan machine learning.
