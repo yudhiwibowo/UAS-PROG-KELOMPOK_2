@@ -1,11 +1,9 @@
-main.cpp
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <vector>
-#include <set>
 #include <map>
-#include <algorithm>
+#include <set>
 #include <iomanip>
 
 using namespace std;
@@ -18,7 +16,7 @@ struct Data {
     string satuan;
 };
 
-vector<Data> dataset;
+vector<Data> df;
 
 string hitungRating(double persen) {
     if (persen <= 40)
@@ -29,17 +27,19 @@ string hitungRating(double persen) {
         return "Critical";
 }
 
-void bacaCSV(string namaFile) {
-    ifstream file(namaFile);
+bool bacaCSV(string fileData) {
+
+    ifstream file(fileData);
 
     if (!file.is_open()) {
-        cout << "Gagal membuka file!" << endl;
-        return;
+        cout << "Gagal membuka file: "
+             << fileData << endl;
+        return false;
     }
 
     string line;
 
-    getline(file, line); // header
+    getline(file, line);
 
     while (getline(file, line)) {
 
@@ -52,29 +52,47 @@ void bacaCSV(string namaFile) {
         getline(ss, d.lokasi, ',');
         getline(ss, d.parameter, ',');
         getline(ss, temp, ',');
-        d.nilai = stod(temp);
+
+        try {
+            d.nilai = stod(temp);
+        }
+        catch (...) {
+            continue;
+        }
+
         getline(ss, d.satuan, ',');
 
-        dataset.push_back(d);
+        df.push_back(d);
     }
 
     file.close();
+
+    cout << "Jumlah data terbaca: "
+         << df.size() << endl;
+
+    return true;
 }
 
-void ringkasanData() {
+void ringkasanDataset() {
 
     set<string> gedung;
     set<string> parameter;
 
-    for (auto d : dataset) {
+    for (auto d : df) {
         gedung.insert(d.lokasi);
         parameter.insert(d.parameter);
     }
 
     cout << "\n=== RINGKASAN DATA ===\n";
-    cout << "Jumlah Record : " << dataset.size() << endl;
-    cout << "Jumlah Gedung : " << gedung.size() << endl;
-    cout << "Jumlah Parameter : " << parameter.size() << endl;
+
+    cout << "Jumlah Record : "
+         << df.size() << endl;
+
+    cout << "Jumlah Gedung : "
+         << gedung.size() << endl;
+
+    cout << "Jumlah Parameter : "
+         << parameter.size() << endl;
 }
 
 void statistikData() {
@@ -83,32 +101,49 @@ void statistikData() {
 
     set<string> parameterSet;
 
-    for (auto d : dataset)
+    for (auto d : df)
         parameterSet.insert(d.parameter);
 
     for (auto p : parameterSet) {
 
-        vector<double> nilai;
+        double total = 0;
+        double maksimum = -999999;
+        double minimum = 999999;
+        int jumlah = 0;
 
-        for (auto d : dataset) {
-            if (d.parameter == p)
-                nilai.push_back(d.nilai);
+        for (auto d : df) {
+
+            if (d.parameter == p) {
+
+                total += d.nilai;
+                jumlah++;
+
+                if (d.nilai > maksimum)
+                    maksimum = d.nilai;
+
+                if (d.nilai < minimum)
+                    minimum = d.nilai;
+            }
         }
 
-        double total = 0;
-
-        for (double x : nilai)
-            total += x;
-
-        double rata = total / nilai.size();
-
-        double maks = *max_element(nilai.begin(), nilai.end());
-        double mins = *min_element(nilai.begin(), nilai.end());
+        if (jumlah == 0)
+            continue;
 
         cout << "\n" << p << endl;
-        cout << "Rata-rata : " << fixed << setprecision(2) << rata << endl;
-        cout << "Maksimum  : " << maks << endl;
-        cout << "Minimum   : " << mins << endl;
+
+        cout << "Rata-rata : "
+             << fixed
+             << setprecision(2)
+             << total / jumlah
+             << endl;
+
+        cout << "Maksimum  : "
+             << maksimum
+             << endl;
+
+        cout << "Minimum   : "
+             << minimum
+             << endl;
     }
 }
 
@@ -118,26 +153,26 @@ void analisisKampus() {
 
     set<string> parameterSet;
 
-    for (auto d : dataset)
+    for (auto d : df)
         parameterSet.insert(d.parameter);
 
     for (auto p : parameterSet) {
 
-        map<string, pair<double, int>> dataGedung;
+        map<string, pair<double,int>> gedungData;
 
-        for (auto d : dataset) {
+        for (auto d : df) {
 
             if (d.parameter == p) {
 
-                dataGedung[d.lokasi].first += d.nilai;
-                dataGedung[d.lokasi].second++;
+                gedungData[d.lokasi].first += d.nilai;
+                gedungData[d.lokasi].second++;
             }
         }
 
-        string gedungTertinggi;
-        double nilaiTertinggi = 0;
+        string lokasiTertinggi;
+        double nilaiTertinggi = -1;
 
-        for (auto item : dataGedung) {
+        for (auto item : gedungData) {
 
             double rata =
                 item.second.first /
@@ -146,12 +181,13 @@ void analisisKampus() {
             if (rata > nilaiTertinggi) {
 
                 nilaiTertinggi = rata;
-                gedungTertinggi = item.first;
+                lokasiTertinggi = item.first;
             }
         }
 
-        cout << p << " Tertinggi : "
-             << gedungTertinggi
+        cout << p
+             << " Tertinggi : "
+             << lokasiTertinggi
              << " ("
              << fixed
              << setprecision(2)
@@ -165,22 +201,22 @@ void sustainabilityRating() {
 
     cout << "\n=== SUSTAINABILITY RATING ===\n";
 
-    map<string, pair<double, int>> energyGedung;
+    map<string, pair<double,int>> energyData;
 
-    for (auto d : dataset) {
+    for (auto d : df) {
 
         if (d.parameter == "Energy") {
 
-            energyGedung[d.lokasi].first += d.nilai;
-            energyGedung[d.lokasi].second++;
+            energyData[d.lokasi].first += d.nilai;
+            energyData[d.lokasi].second++;
         }
     }
 
-    map<string, double> rataGedung;
-
     double maksimum = 0;
 
-    for (auto item : energyGedung) {
+    map<string,double> rataGedung;
+
+    for (auto item : energyData) {
 
         double rata =
             item.second.first /
@@ -210,14 +246,14 @@ void simpanLaporan() {
 
     if (!file.is_open()) {
 
-        cout << "Gagal membuat file laporan!" << endl;
+        cout << "Gagal membuat laporan!\n";
         return;
     }
 
     set<string> gedung;
     set<string> parameter;
 
-    for (auto d : dataset) {
+    for (auto d : df) {
 
         gedung.insert(d.lokasi);
         parameter.insert(d.parameter);
@@ -226,53 +262,51 @@ void simpanLaporan() {
     file << "LAPORAN SUSTAINABILITY UNESA\n\n";
 
     file << "Jumlah Record : "
-         << dataset.size()
-         << "\n";
+         << df.size() << "\n";
 
     file << "Jumlah Gedung : "
-         << gedung.size()
-         << "\n";
+         << gedung.size() << "\n";
 
     file << "Jumlah Parameter : "
-         << parameter.size()
-         << "\n\n";
+         << parameter.size() << "\n\n";
 
     for (auto p : parameter) {
 
-        vector<double> nilai;
+        double total = 0;
+        double maksimum = -999999;
+        double minimum = 999999;
+        int jumlah = 0;
 
-        for (auto d : dataset) {
+        for (auto d : df) {
 
-            if (d.parameter == p)
-                nilai.push_back(d.nilai);
+            if (d.parameter == p) {
+
+                total += d.nilai;
+                jumlah++;
+
+                if (d.nilai > maksimum)
+                    maksimum = d.nilai;
+
+                if (d.nilai < minimum)
+                    minimum = d.nilai;
+            }
         }
 
-        double total = 0;
+        file << p << "\n";
 
-        for (double x : nilai)
-            total += x;
-
-        double rata = total / nilai.size();
-
-        double maks =
-            *max_element(nilai.begin(),
-                         nilai.end());
-
-        double mins =
-            *min_element(nilai.begin(),
-                         nilai.end());
-
-        file << p << endl;
         file << "Rata-rata : "
              << fixed
              << setprecision(2)
-             << rata << endl;
+             << total / jumlah
+             << "\n";
 
         file << "Maksimum : "
-             << maks << endl;
+             << maksimum
+             << "\n";
 
         file << "Minimum : "
-             << mins << endl << endl;
+             << minimum
+             << "\n\n";
     }
 
     file.close();
@@ -282,7 +316,8 @@ void simpanLaporan() {
 
 int main() {
 
-    bacaCSV("../dataset/sustainability_data.csv");
+    if (!bacaCSV("../dataset/sustainability_data.csv"))
+        return 0;
 
     int pilih;
 
@@ -302,7 +337,7 @@ int main() {
         switch (pilih) {
 
         case 1:
-            ringkasanData();
+            ringkasanDataset();
             break;
 
         case 2:
@@ -333,4 +368,3 @@ int main() {
 
     return 0;
 }
-```

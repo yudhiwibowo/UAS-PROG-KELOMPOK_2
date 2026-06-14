@@ -1,7 +1,10 @@
+from pathlib import Path
 import pandas as pd
 
-FILE_DATA = "../dataset/sustainability_data.csv"
+BASE_DIR = Path(__file__).resolve().parent.parent
+FILE_DATA = BASE_DIR / "dataset" / "sustainability_data.csv"
 
+df = pd.read_csv(FILE_DATA)
 
 def hitung_rating(persen):
     if persen <= 40:
