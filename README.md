@@ -1,80 +1,62 @@
-# Sistem Analisis Sustainability UNESA
+# UNESA Sustainability Analysis System
 
-## Anggota Kelompok
+## Team Members
 
-- Muhammad Yudhi Wahyu Wibowo
-- Indryana Azaki
-- Muhammad Azam Irfansyah
-- Four Rezeki Waruwu
+* Muhammad Yudhi Wahyu Wibowo
+* Indryana Azaki
+* Azam Irfansyah
+* Four Rezeki Waruwu
 
-## Deskripsi
+## Description
 
-Proyek ini merupakan sistem analisis sustainability kampus UNESA yang memanfaatkan data sensor IoT untuk memantau berbagai parameter lingkungan, yaitu konsumsi energi (Energy), penggunaan air (Water), emisi karbon (CO₂), dan produksi sampah (Waste).
+This project is a sustainability analysis system for UNESA that utilizes IoT sensor data to monitor various environmental parameters, including energy consumption, water usage, CO₂ emissions, and waste production.
 
-Program dikembangkan menggunakan dua bahasa pemrograman, yaitu C++ dan Python, dengan fungsi yang sama untuk melakukan analisis data, menghasilkan statistik, menentukan gedung dengan konsumsi tertinggi, memberikan sustainability rating, serta menyimpan hasil analisis ke dalam file laporan.
+The system was developed using two programming languages, **C++** and **Python**, both providing the same functionality to analyze data, generate statistical information, identify buildings with the highest consumption levels, assign sustainability ratings, and save analysis results into a report file.
 
-## Cara Menjalankan C++
+## How to Run the C++ Program
 
 ```bash
 g++ main.cpp -o main
 ./main
 ```
 
-## Cara Menjalankan Python
+## How to Run the Python Program
 
 ```bash
 python main.py
 ```
 
-## Ringkasan Hasil Analisi
+## Analysis Summary
 
-Berdasarkan analisis terhadap dataset sustainability UNESA:
+Based on the analysis of the UNESA sustainability dataset:
 
-Jumlah Record: 29.200 data
-Jumlah Gedung: 20 gedung
-Jumlah Parameter: 4 parameter (Energy, Water, CO₂, dan Waste)
-Program berhasil membaca dataset dan melakukan analisis statistik berupa nilai rata-rata, maksimum, dan minimum untuk setiap parameter.
-Program berhasil mengidentifikasi gedung dengan rata-rata konsumsi energi tertinggi.
-Program berhasil mengidentifikasi gedung dengan rata-rata penggunaan air tertinggi.
-Program berhasil mengidentifikasi gedung dengan rata-rata emisi CO₂ tertinggi.
-Program berhasil mengidentifikasi gedung dengan rata-rata produksi sampah tertinggi.
-Program berhasil mengklasifikasikan Sustainability Rating setiap gedung ke dalam kategori:
-Green (0–40%)
-Warning (40–70%)
-Critical (>70%)
-Seluruh hasil analisis dapat disimpan ke dalam file laporan_sustainability.txt.
+* **Total Records:** 29,200 records
+* **Total Buildings:** 20 buildings
+* **Total Parameters:** 4 parameters (Energy, Water, CO₂, and Waste)
+* The program successfully reads the dataset and performs statistical analysis, including average, maximum, and minimum values for each parameter.
+* The program identifies the building with the highest average energy consumption.
+* The program identifies the building with the highest average water usage.
+* The program identifies the building with the highest average CO₂ emissions.
+* The program identifies the building with the highest average waste production.
+* The program classifies each building into Sustainability Rating categories:
 
-## Ringkasan Hasil Analisis
+  * **Green** (0–40%)
+  * **Warning** (40–70%)
+  * **Critical** (>70%)
+* All analysis results can be saved into the `laporan_sustainability.txt` report file.
 
-Berdasarkan analisis terhadap dataset sustainability UNESA:
+## Comparison Between C++ and Python
 
-* Jumlah Record: **29.200 data**
-* Jumlah Gedung: **20 gedung**
-* Jumlah Parameter: **4 parameter** (Energy, Water, CO₂, dan Waste)
-* Program berhasil membaca dataset dan melakukan analisis statistik berupa nilai rata-rata, maksimum, dan minimum untuk setiap parameter.
-* Program berhasil mengidentifikasi gedung dengan rata-rata konsumsi energi tertinggi.
-* Program berhasil mengidentifikasi gedung dengan rata-rata penggunaan air tertinggi.
-* Program berhasil mengidentifikasi gedung dengan rata-rata emisi CO₂ tertinggi.
-* Program berhasil mengidentifikasi gedung dengan rata-rata produksi sampah tertinggi.
-* Program berhasil mengklasifikasikan Sustainability Rating setiap gedung ke dalam kategori:
+| Aspect          | C++                       | Python                              |
+| --------------- | ------------------------- | ----------------------------------- |
+| Execution Speed | Faster                    | Slower                              |
+| Ease of Coding  | More complex syntax       | Simpler syntax                      |
+| Lines of Code   | More lines required       | Fewer lines required                |
+| CSV Processing  | Requires manual parsing   | Easy with the Pandas library        |
+| Debugging       | Relatively more difficult | Easier                              |
+| Memory Usage    | More efficient            | Higher memory consumption           |
+| Best Suited For | High-performance systems  | Data analysis and rapid development |
 
-  * Green (0–40%)
-  * Warning (40–70%)
-  * Critical (>70%)
-* Seluruh hasil analisis dapat disimpan ke dalam file `laporan_sustainability.txt`.
+## Presentation Video
 
-## Perbandingan C++ dan Python
-
-| Aspek                    | C++                       | Python                               |
-| ------------------------ | ------------------------- | ------------------------------------ |
-| Kecepatan Eksekusi       | Lebih cepat               | Lebih lambat                         |
-| Kemudahan Penulisan Kode | Sintaks lebih kompleks    | Sintaks lebih sederhana              |
-| Jumlah Baris Program     | Lebih banyak              | Lebih sedikit                        |
-| Pengolahan CSV           | Memerlukan parsing manual | Mudah dengan library Pandas          |
-| Kemudahan Debugging      | Relatif lebih sulit       | Lebih mudah                          |
-| Penggunaan Memori        | Lebih efisien             | Lebih besar                          |
-| Cocok Untuk              | Sistem berperforma tinggi | Analisis data dan pengembangan cepat |
-
-## Video Presentasi
-
-(Link nanti)
+(To be added later)
